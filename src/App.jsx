@@ -122,7 +122,7 @@ const App = () => {
   return (
     <div>
       {componentPage}
-      {page !== PAGES.HOME && <NavBar pages={PAGES} setPage={setPage}/>}
+      {page !== PAGES.HOME && <NavBar page={page} pages={PAGES} setPage={setPage} setCollectionInfo={setCollectionInfo}/>}
     </div>
   )
 }

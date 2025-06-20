@@ -5,7 +5,7 @@ const CollectionSelect = () => {
 
 	return (
 		<div>
-			
+			CollectionSelect
 		</div>
 	)
 }

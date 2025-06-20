@@ -5,7 +5,7 @@ const GameSelect = () => {
 
   return (
     <div>
-      
+      GameSelect
     </div>
   )
 }
