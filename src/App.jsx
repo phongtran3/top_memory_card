@@ -7,7 +7,7 @@ import CollectionSelect from "./pages/CollectionSelect";
 import InGame from "./pages/InGame";
 import InCollection from "./pages/InCollection";
 import NavBar from "./components/NavBar";
-
+import SettingsDialog from "./components/SettingsDialog";
 
 const PAGES = {
   HOME: 'home',
@@ -29,12 +29,7 @@ const genArtWork = {
   gen9: 'gen9',
 }
 
-
-const App = () => {
-  const [page, setPage] = useState(PAGES.HOME);
-  const [generationInfo, setGenerationInfo] = useState([])
-
-  //Fetch Local storage
+//Fetch Local storage
   const getLocalData = (key, fallback = null) => {
     try{
       const storedData = localStorage.getItem(key);
@@ -48,26 +43,32 @@ const App = () => {
     }
   }
 
-  const collectionInfo = getLocalData("collectionInfo", 
-    {
-      gen1: [0,1,2,3,4,5,6,7],
-      gen2: [],
-      gen3: [],
-      gen4: [],
-      gen5: [],
-      gen6: [],
-      gen7: [],
-      gen8: [],
-      gen9: [],
-    }
-  )
-    
+const App = () => {
+  const [page, setPage] = useState(PAGES.HOME);
+  const [generationInfo, setGenerationInfo] = useState([])
+  const [collectionInfo, setCollectionInfo] = useState(() => {
+    return getLocalData("collectionInfo", 
+        {
+          gen1: [0,1,2,3,4,5,6,7],
+          gen2: [],
+          gen3: [],
+          gen4: [],
+          gen5: [],
+          gen6: [],
+          gen7: [],
+          gen8: [],
+          gen9: [],
+        }
+      )
+  })
+
+  
 
   let componentPage;
 
   switch (page) {
     case PAGES.HOME: 
-      componentPage = <Home pages={PAGES} setPage={setPage}/>
+      componentPage = <Home setCollectionInfo={setCollectionInfo} pages={PAGES} setPage={setPage}/>
       break;
     case PAGES.GAME_SELECT:
       componentPage = <GameSelect generationInfo={generationInfo} setPage={setPage}/>
@@ -114,9 +115,10 @@ const App = () => {
       }
     }
     fetchGenerationInfo();
-  }, [])
+  }, [collectionInfo])
 
   console.log(generationInfo);
+  console.log(collectionInfo)
   return (
     <div>
       {componentPage}

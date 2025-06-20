@@ -1,6 +1,8 @@
+import {useState} from 'react'
+import SettingsDialog from "../components/SettingsDialog";
 
-
-const Home = ({setPage, pages}) => {
+const Home = ({setPage, pages, setCollectionInfo}) => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   console.log("Home");
   console.log(pages);
 
@@ -17,11 +19,19 @@ const Home = ({setPage, pages}) => {
 
   const openSetting = () => {
     console.log("openSetting")
+    setIsDialogOpen(true);
   }
 
-  const closeSetting = () => {}
 
-
+  const clearGameData = () => {
+    console.log(`clear game data`);
+    let collectionInfo = JSON.parse(localStorage.getItem(`collectionInfo`)) || {};
+    Object.keys(collectionInfo).forEach(key => {
+      collectionInfo[key] = [];
+    })
+    localStorage.setItem(`collectionInfo`, JSON.stringify(collectionInfo));
+    setCollectionInfo(collectionInfo);
+  }
 
   return (
     <main>
@@ -34,6 +44,14 @@ const Home = ({setPage, pages}) => {
         <button className='menu-btn' onClick={handleCollection}>Collections</button>
         <button className='menu-btn' onClick={openSetting} >Settings</button>
       </div>
+
+      <SettingsDialog
+        isDialogOpen={isDialogOpen}
+        onClose={() => setIsDialogOpen(false)}
+        onClear={clearGameData}
+      >
+      </SettingsDialog>
+
     </main>
     
   )
