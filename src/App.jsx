@@ -9,6 +9,16 @@ import InCollection from "./pages/InCollection";
 import NavBar from "./components/NavBar";
 import SettingsDialog from "./components/SettingsDialog";
 
+import kantoStarters from '../src/assets/images/kanto-starters.webp';
+import jhotoStarters from '../src/assets/images/jhoto-starters.webp';
+import hoennStarters from '../src/assets/images/hoenn-starters.webp';
+import sinnohStarters from '../src/assets/images/sinnoh-starters.webp';
+import unovaStarters from '../src/assets/images/unova-starters.webp';
+import kalosStarters from '../src/assets/images/kalos-starters.webp';
+import alolaStarters from '../src/assets/images/alola-starters.webp';
+import galarStarters from '../src/assets/images/galar-starters.webp';
+import paldeaStarters from '../src/assets/images/paldea-starters.webp';
+
 const PAGES = {
   HOME: 'home',
   GAME_SELECT: 'gameSelect',
@@ -18,15 +28,15 @@ const PAGES = {
 }
 
 const genArtWork = {
-  gen1: 'gen1',
-  gen2: 'gen2',
-  gen3: 'gen3',
-  gen4: 'gen4',
-  gen5: 'gen5',
-  gen6: 'gen6',
-  gen7: 'gen7',
-  gen8: 'gen8',
-  gen9: 'gen9',
+  gen1: kantoStarters,
+  gen2: jhotoStarters,
+  gen3: hoennStarters,
+  gen4: sinnohStarters,
+  gen5: unovaStarters,
+  gen6: kalosStarters,
+  gen7: alolaStarters,
+  gen8: galarStarters,
+  gen9: paldeaStarters,
 }
 
 //Fetch Local storage
@@ -50,8 +60,8 @@ const App = () => {
     return getLocalData("collectionInfo", 
         {
           gen1: [0,1,2,3,4,5,6,7],
-          gen2: [],
-          gen3: [],
+          gen2: [0,1,2,3,4,5,6,7,8,9,10],
+          gen3: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
           gen4: [],
           gen5: [],
           gen6: [],
@@ -77,7 +87,7 @@ const App = () => {
       componentPage = <InGame setPage={setPage}/>
       break;
     case PAGES.COLLECTION_SELECT:
-      componentPage = <CollectionSelect generationInfo={generationInfo} setPage={setPage}/>
+      componentPage = <CollectionSelect generationInfo={generationInfo} pages={PAGES} setPage={setPage}/>
       break;
     case PAGES.IN_COLLECTION:
       componentPage = <InCollection setPage={setPage}/>
@@ -98,13 +108,17 @@ const App = () => {
           const genResponse = await axios.get(`https://pokeapi.co/api/v2/generation/${i+1}`);
           let genCollected = collectionInfo[`gen${i+1}`].length
           let numPokemon = genResponse.data.pokemon_species.length
+          let regionName = genResponse.data.main_region.name
+
 
           let object = {
             id: genResponse.data.id,
-            regionName: genResponse.data.main_region.name,
+            regionName: regionName.charAt(0).toUpperCase() + regionName.slice(1),
             numPokemon: numPokemon,
             artwork: genArtWork[`gen${i+1}`],
-            collected: ((genCollected/numPokemon) * 100).toFixed(0)
+            collected: genCollected,
+            currentLevel: 0,
+            //((genCollected/numPokemon) * 100).toFixed(0)
           }
 
           array.push(object);
@@ -120,7 +134,7 @@ const App = () => {
   console.log(generationInfo);
   console.log(collectionInfo)
   return (
-    <div>
+    <div className="app">
       {componentPage}
       {page !== PAGES.HOME && <NavBar page={page} pages={PAGES} setPage={setPage} setCollectionInfo={setCollectionInfo}/>}
     </div>

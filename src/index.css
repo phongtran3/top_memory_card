@@ -23,3 +23,12 @@ body {
   font-size: var(--font-size-body);
   font-family: var(--font-family);
 }
+
+.selection-card-artwork img {
+  max-width: 100%;
+}
+
+.selection-card {
+  border: 1px solid black;
+  cursor: pointer;
+}
