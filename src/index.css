@@ -24,11 +24,28 @@ body {
   font-family: var(--font-family);
 }
 
-.selection-card-artwork img {
+.selection-card-artwork img,
+.collection-card-img img {
   max-width: 100%;
 }
 
 .selection-card {
   border: 1px solid black;
   cursor: pointer;
+}
+
+.collection-card {
+  cursor: pointer;
+  margin-bottom: .5rem;
+  border: 1px solid black;
+}
+
+.collection-card-img img {
+  width: 100px;
+}
+
+
+nav {
+  position: fixed;
+  bottom: 0;
 }

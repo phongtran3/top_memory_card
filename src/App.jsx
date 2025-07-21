@@ -55,6 +55,7 @@ const genArtWork = {
 
 const App = () => {
   const [page, setPage] = useState(PAGES.HOME);
+  const [collectionGenId, setCollectionGenId] = useState(0);
   const [generationInfo, setGenerationInfo] = useState([])
   const [collectionInfo, setCollectionInfo] = useState(() => {
     return getLocalData("collectionInfo", 
@@ -87,10 +88,16 @@ const App = () => {
       componentPage = <InGame setPage={setPage}/>
       break;
     case PAGES.COLLECTION_SELECT:
-      componentPage = <CollectionSelect generationInfo={generationInfo} pages={PAGES} setPage={setPage}/>
+      componentPage = 
+        <CollectionSelect 
+          generationInfo={generationInfo} 
+          pages={PAGES} 
+          setPage={setPage} 
+          setCollectionGenId={setCollectionGenId}
+        />
       break;
     case PAGES.IN_COLLECTION:
-      componentPage = <InCollection setPage={setPage}/>
+      componentPage = <InCollection setPage={setPage} genId={collectionGenId}/>
       break;
     default:
       componentPage = <Home setPage={setPage}/>
@@ -136,7 +143,16 @@ const App = () => {
   return (
     <div className="app">
       {componentPage}
-      {page !== PAGES.HOME && <NavBar page={page} pages={PAGES} setPage={setPage} setCollectionInfo={setCollectionInfo}/>}
+      {page !== PAGES.HOME && 
+      
+      <NavBar 
+        page={page} 
+        pages={PAGES} 
+        setPage={setPage} 
+        setCollectionInfo={setCollectionInfo}
+
+      />
+      }
     </div>
   )
 }
