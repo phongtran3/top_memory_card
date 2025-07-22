@@ -15,6 +15,10 @@ const InCollection = ({genId}) => {
   const [loading, setLoading] = useState(true);
   const [cardOpen, setCardOpen] = useState(false);
 
+  const currCollection = JSON.parse(localStorage.getItem('collectionInfo'))
+  const currCollectionSet = new Set(currCollection[`gen${genId}`])
+  console.log(currCollectionSet);
+  
   useEffect(() => {
     let isMounted = true;
 
@@ -29,8 +33,6 @@ const InCollection = ({genId}) => {
 
         const promise = pokemonIdArray.map(id => axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`))
         const result = await Promise.all(promise);
-        console.log(result)
-
 
         const pokemons = result.map(res => {
           const typeArray = res.data.types.map(t => 
@@ -43,7 +45,7 @@ const InCollection = ({genId}) => {
               statName : statMap[stat.stat.name] || stat.stat.name,
             }
           })
-          
+
           return {
             id: res.data.id,
             name: res.data.name,
@@ -88,19 +90,38 @@ const InCollection = ({genId}) => {
                 const pokemonName = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)
                 return (
                   <div className="collection-card" key={pokemon.id}>
-                    <div className="collection-card-header">
-                      <h3>#{pokemon.id} {pokemonName}</h3>
-                    </div>
-                    <div className="collection-card-img">
-                      <img src={pokemon.artworkUrl}/>
-                    </div>
-                    <div className="type-container">
-                      {pokemon.types.map((type,index) => {
-                        return (
-                        <span> {type}{index < pokemon.types.length - 1 ? ' · ' : ''}</span>
-                        )
-                      })}
-                    </div>
+                    {currCollectionSet.has(pokemon.id) ? 
+                      <>
+                        <div className="collection-card-header">
+                          <h3>#{pokemon.id} {pokemonName}</h3>
+                        </div>
+
+                        <div className="collection-card-img">
+                          <img src={pokemon.artworkUrl}/>
+                        </div>
+
+                        <div className="data-container">
+                          <div className="type-container">
+                            {pokemon.types.map((type,index) => {
+                              return (
+                              <span> {type}{index < pokemon.types.length - 1 ? ' · ' : ''}</span>
+                              )
+                            })}
+                          </div>
+                          <div className="stats-container">
+                            {pokemon.stats.map((stat) => {
+                              return (
+                                <p>{stat.statName} {stat.baseStat}</p>
+                              )
+                            })}
+
+                          </div>
+                        </div>
+                      </> :
+                      <>
+                        <h3>#{pokemon.id}</h3>
+                      </>
+                    }
                   </div>
                 )
               })}
