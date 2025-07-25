@@ -56,6 +56,7 @@ const genArtWork = {
 const App = () => {
   const [page, setPage] = useState(PAGES.HOME);
   const [collectionGenId, setCollectionGenId] = useState(0);
+  const [playGenId, setGenId] = useState(0);
   const [generationInfo, setGenerationInfo] = useState([])
   const [collectionInfo, setCollectionInfo] = useState(() => {
     return getLocalData("collectionInfo", 
@@ -73,8 +74,6 @@ const App = () => {
       )
   })
 
-  
-
   let componentPage;
 
   switch (page) {
@@ -82,7 +81,13 @@ const App = () => {
       componentPage = <Home setCollectionInfo={setCollectionInfo} pages={PAGES} setPage={setPage}/>
       break;
     case PAGES.GAME_SELECT:
-      componentPage = <GameSelect generationInfo={generationInfo} setPage={setPage}/>
+      componentPage = 
+      <GameSelect 
+        generationInfo={generationInfo} 
+        pages={PAGES}
+        setPage={setPage}
+        setGameId={setGenId}
+        />
       break;
     case PAGES.IN_GAME: 
       componentPage = <InGame setPage={setPage}/>

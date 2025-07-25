@@ -1,9 +1,5 @@
-import React, {useState} from 'react'
-import FullCollection from '../components/FullCollection'
 
 const CollectionSelect = ({generationInfo, pages, setPage, setCollectionGenId}) => {
-	const [inCollection, setInCollection] = useState(false);
-
   console.log("CollectionSelect");
 	console.log(generationInfo);
 
@@ -16,8 +12,6 @@ const CollectionSelect = ({generationInfo, pages, setPage, setCollectionGenId}) 
 
 	return (
 		<main className='page-container'>
-			{inCollection ? <FullCollection /> : 
-			<>
 				<div className="page-header">
 					<h2>Collection</h2>
 				</div>
@@ -44,8 +38,6 @@ const CollectionSelect = ({generationInfo, pages, setPage, setCollectionGenId}) 
 						})}
 					</div>
 				</div>
-			</>
-			}
 		</main>
 	)
 }
