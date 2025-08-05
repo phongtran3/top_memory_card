@@ -56,12 +56,12 @@ const genArtWork = {
 const App = () => {
   const [page, setPage] = useState(PAGES.HOME);
   const [collectionGenId, setCollectionGenId] = useState(0);
-  const [playGenId, setGenId] = useState(0);
+  const [playGenId, setPlayGenId] = useState(0);
   const [generationInfo, setGenerationInfo] = useState([])
   const [collectionInfo, setCollectionInfo] = useState(() => {
     return getLocalData("collectionInfo", 
         {
-          gen1: [0,1,2,3,4,5,6,7],
+          gen1: [0,1,2,3,4,5,6,7,21,22,23,24,25,26],
           gen2: [152,153,154,155,156,157,158,158,159,160],
           gen3: [252,253,254,255,256,257,258,259,260],
           gen4: [],
@@ -86,11 +86,11 @@ const App = () => {
         generationInfo={generationInfo} 
         pages={PAGES}
         setPage={setPage}
-        setGameId={setGenId}
+        setGameId={setPlayGenId}
         />
       break;
     case PAGES.IN_GAME: 
-      componentPage = <InGame setPage={setPage}/>
+      componentPage = <InGame setPage={setPage} genId={playGenId}/>
       break;
     case PAGES.COLLECTION_SELECT:
       componentPage = 
@@ -129,7 +129,7 @@ const App = () => {
             numPokemon: numPokemon,
             artwork: genArtWork[`gen${i+1}`],
             collected: genCollected,
-            currentLevel: 0,
+            //currentLevel: 0,
             //((genCollected/numPokemon) * 100).toFixed(0)
           }
 

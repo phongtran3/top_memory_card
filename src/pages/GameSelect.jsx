@@ -6,9 +6,8 @@ const GameSelect = ({generationInfo, pages, setPage, setGameId}) => {
 
   const handleRegionSelect = (genId) => {
       console.log("Generation " + genId)
-      //setInCollection(true);
-      // setPage(pages.IN_COLLECTION)
-      // setCollectionGenId(genId);
+      setPage(pages.IN_GAME)
+		  setGameId(genId);
     }
 
   return (
