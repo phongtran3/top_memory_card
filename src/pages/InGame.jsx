@@ -21,9 +21,11 @@ const InGame = ({genId}) => {
   const [currentLevel, setCurrentLevel] = useState(() => {
     return parseInt(localStorage.getItem(`currentLevel`)) || 1;
   })
+  const [collecting, setCollecting] = useState(new Set());
   const [notCollected, setNotCollected] = useState([]);
   const [displayedSet, setDisplayedSet] = useState([]);
   const [cardsRemaining, setCardsRemaining] = useState(9)
+  const [gameOver, setGameOver] = useState(false);
   const [loading, setLoading] = useState(true);
 
   /*
@@ -79,7 +81,40 @@ const InGame = ({genId}) => {
     return () => {
       isMounted = false; // cleanup
     };
-  }, [])
+  }, []) //On inital page load
+
+
+
+
+  const handleCardSelect = (pokemonID) => {
+    if(isInCollection(pokemonID)){
+      console.log("In Collection")
+      setCollecting(new Set());
+      setCardsRemaining(9);
+      setDisplayedSet(fisherYatesShuffle(displayedSet))
+    }
+    else{
+      console.log("Not in collection")
+      setCollecting(prev => new Set(prev).add(pokemonID));
+
+      //If equal, all cards have been collected
+      if(collecting.size === notCollected.length){
+        //display pop up for next round
+        
+      }else {
+        //update cards remaining
+        //reshuffle cards displayed
+        setCardsRemaining(prev => prev - 1);
+        setDisplayedSet(fisherYatesShuffle(displayedSet))
+      }
+    }
+
+
+  }
+
+  const isInCollection = (pokemonID) => collecting.has(pokemonID);
+
+
 
 
   console.log("current level " + currentLevel);
@@ -87,9 +122,36 @@ const InGame = ({genId}) => {
   console.log(displayedSet);
   
   return (
-    <div>
-      
-    </div>
+    <main className='page-container'>
+      <div className="game-header">
+        {cardsRemaining} cards remaining
+      </div>
+      <div className="game-container">
+        {loading ? 
+            <div className='game-loader'>
+              Loading
+            </div>
+          :
+          <div className="game-card-grid">
+            {displayedSet.map((pokemon) => {
+              const pokemonName = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)
+              return (
+                <div className="game-card" onClick={() => handleCardSelect(pokemon.id)}>
+                  <div className="game-card-artwork">
+                    <img src={pokemon.artworkUrl}/>
+                  </div>
+
+                  <div className="game-card-title">
+                    <h3>{pokemonName}</h3>
+                  </div>
+                </div>
+              )
+            })}
+
+          </div>
+        }
+      </div>
+    </main>
   )
 }
 

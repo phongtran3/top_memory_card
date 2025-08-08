@@ -35,13 +35,15 @@ body {
   cursor: pointer;
 }
 
-.collection-card {
+.collection-card,
+.game-card {
   cursor: pointer;
   margin-bottom: .5rem;
   border: 1px solid black;
 }
 
-.collection-card-img img {
+.collection-card-img img,
+.game-card-artwork img {
   width: 100px;
 }
 
