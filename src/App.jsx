@@ -90,7 +90,7 @@ const App = () => {
         />
       break;
     case PAGES.IN_GAME: 
-      componentPage = <InGame setPage={setPage} genId={playGenId}/>
+      componentPage = <InGame pages={PAGES} setPage={setPage} genId={playGenId}/>
       break;
     case PAGES.COLLECTION_SELECT:
       componentPage = 
