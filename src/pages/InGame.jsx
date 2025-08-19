@@ -12,7 +12,7 @@ const fisherYatesShuffle = (array, count = 9) => {
   return copy.slice(0, count);
 }
 
-const InGame = ({genId, setPage, pages}) => {
+const InGame = ({genId, setPage, pages, setGenerationInfo}) => {
   console.log("InGame");
   console.log("gen id " + genId);
 
@@ -98,6 +98,16 @@ const InGame = ({genId, setPage, pages}) => {
 
   const isInCollection = (pokemonID) => collecting.has(pokemonID);
 
+  // let object = {
+  //   id: genResponse.data.id,
+  //   regionName: regionName.charAt(0).toUpperCase() + regionName.slice(1),
+  //   numPokemon: numPokemon,
+  //   artwork: genArtWork[`gen${i+1}`],
+  //   collected: genCollected,
+  //   currentLevel: 0,
+  //   ((genCollected/numPokemon) * 100).toFixed(0)
+  // }
+
   const resetGame = () =>{
       setCollecting(new Set());
       setCardsRemaining(9);
@@ -121,7 +131,9 @@ const InGame = ({genId, setPage, pages}) => {
       ];
       localStorage.setItem('collectionInfo', JSON.stringify(collectedPokemons))
       localStorage.setItem(`currentLevel`, currentLevel + 1)
+      console.log(collectedPokemons[`gen${genId}`].length);
       
+
       const filtered = notCollected.filter(el => !displayedSet.includes(el));
       setNotCollected(filtered);
       setDisplayedSet(fisherYatesShuffle(filtered, 9));
@@ -131,6 +143,12 @@ const InGame = ({genId, setPage, pages}) => {
       setGameOver(false);
       setGameOverFlag(0);
       setCurrentLevel(prev => prev + 1);
+
+      setGenerationInfo(prev => 
+        prev.map(gen => 
+          gen.id === genId ? {...gen, collected: collectedPokemons[`gen${genId}`].length} : gen
+        )
+      )
 
   }
 

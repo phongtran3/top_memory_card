@@ -22,8 +22,9 @@ const GameSelect = ({generationInfo, pages, setPage, setGameId}) => {
             
             if(gen.id > 1){
               const prevGenId = gen.id - 1;
-              const prevGenInfo = generationInfo[prevGenId];
+              const prevGenInfo = generationInfo[prevGenId - 1];
               prevCollectionPercent = prevGenInfo.collected/prevGenInfo.numPokemon;
+              console.log(prevGenInfo);
             }
             
             const isPlayable = gen.id === 1 || prevCollectionPercent >= 0.75;

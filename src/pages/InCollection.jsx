@@ -52,7 +52,6 @@ const InCollection = ({genId}) => {
             artworkUrl: res.data.sprites.other['official-artwork'].front_default,
             stats: statsArray,
             types: typeArray,
-
           }
         }).sort((a,b) => a.id - b.id);
 
