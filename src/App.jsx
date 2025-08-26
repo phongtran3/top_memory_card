@@ -58,6 +58,7 @@ const App = () => {
   const [collectionGenId, setCollectionGenId] = useState(0);
   const [playGenId, setPlayGenId] = useState(0);
   const [generationInfo, setGenerationInfo] = useState([])
+
   const [collectionInfo, setCollectionInfo] = useState(() => {
     return getLocalData("collectionInfo", 
         {
@@ -78,6 +79,20 @@ const App = () => {
         }
       )
   })
+
+  getLocalData("levelInfo",
+      {
+        gen1: 1,
+        gen2: 1,
+        gen3: 1,
+        gen4: 1,
+        gen5: 1,
+        gen6: 1,
+        gen7: 1,
+        gen8: 1,
+        gen9: 1,
+      }
+  )
 
   let componentPage;
 
@@ -152,6 +167,7 @@ const App = () => {
 
   console.log(generationInfo);
   console.log(collectionInfo)
+
   return (
     <div className="app">
       {componentPage}

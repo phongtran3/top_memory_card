@@ -18,10 +18,13 @@ const InGame = ({genId, setPage, pages, setGenerationInfo}) => {
 
   const collectedPokemons = JSON.parse(localStorage.getItem('collectionInfo'))
   const collectedPokemonSet = new Set(collectedPokemons[`gen${genId}`])
-  
+
+  const storedLevel = JSON.parse(localStorage.getItem('levelInfo'));
   const [currentLevel, setCurrentLevel] = useState(() => {
-    return parseInt(localStorage.getItem(`currentLevel`)) || 1;
+    return storedLevel[`gen${genId}`] || 1;
   })
+
+
   const [collecting, setCollecting] = useState(new Set());
   const [notCollected, setNotCollected] = useState([]);
   const [displayedSet, setDisplayedSet] = useState([]);
@@ -98,16 +101,6 @@ const InGame = ({genId, setPage, pages, setGenerationInfo}) => {
 
   const isInCollection = (pokemonID) => collecting.has(pokemonID);
 
-  // let object = {
-  //   id: genResponse.data.id,
-  //   regionName: regionName.charAt(0).toUpperCase() + regionName.slice(1),
-  //   numPokemon: numPokemon,
-  //   artwork: genArtWork[`gen${i+1}`],
-  //   collected: genCollected,
-  //   currentLevel: 0,
-  //   ((genCollected/numPokemon) * 100).toFixed(0)
-  // }
-
   const resetGame = () =>{
       setCollecting(new Set());
       setCardsRemaining(9);
@@ -116,13 +109,6 @@ const InGame = ({genId, setPage, pages, setGenerationInfo}) => {
       setGameOverFlag(0);
   }
 
-//   setNotCollected(prev => {
-//   const filtered = prev.filter(el => !displayedSet.includes(el));
-//   setDisplayedSet(fisherYatesShuffle(filtered, 9));
-//   return filtered;
-// });
-
-
   const nextGame = () => {
     //update local storage array to include new set of pokemons
       collectedPokemons[`gen${genId}`] = [
@@ -130,9 +116,8 @@ const InGame = ({genId, setPage, pages, setGenerationInfo}) => {
         ...collecting
       ];
       localStorage.setItem('collectionInfo', JSON.stringify(collectedPokemons))
-      localStorage.setItem(`currentLevel`, currentLevel + 1)
-      console.log(collectedPokemons[`gen${genId}`].length);
-      
+      storedLevel[`gen${genId}`] += 1;
+      localStorage.setItem(`levelInfo`, JSON.stringify(storedLevel))
 
       const filtered = notCollected.filter(el => !displayedSet.includes(el));
       setNotCollected(filtered);
