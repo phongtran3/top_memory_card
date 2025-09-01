@@ -6,8 +6,8 @@ const GameSelect = ({generationInfo, pages, setPage, setGameId}) => {
 
   const handleRegionSelect = (genId) => {
       console.log("Generation " + genId)
-      setPage(pages.IN_GAME)
 		  setGameId(genId);
+      setPage(pages.IN_GAME)
     }
 
   return (

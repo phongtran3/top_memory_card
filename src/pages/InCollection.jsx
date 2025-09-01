@@ -53,6 +53,7 @@ const InCollection = ({genId}) => {
             stats: statsArray,
             types: typeArray,
           }
+          
         }).sort((a,b) => a.id - b.id);
 
         if (isMounted) {

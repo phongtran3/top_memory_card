@@ -13,8 +13,6 @@ const fisherYatesShuffle = (array, count = 9) => {
 }
 
 const InGame = ({genId, setPage, pages, setGenerationInfo}) => {
-  console.log("InGame");
-  console.log("gen id " + genId);
 
   const collectedPokemons = JSON.parse(localStorage.getItem('collectionInfo'))
   const collectedPokemonSet = new Set(collectedPokemons[`gen${genId}`])
@@ -51,8 +49,9 @@ const InGame = ({genId, setPage, pages, setGenerationInfo}) => {
           return {
             id: res.data.id,
             name: res.data.name,
-            artworkUrl: res.data.sprites.other['official-artwork'].front_default,   
+            artworkUrl: res.data.sprites?.other?.['official-artwork']?.front_default || "",   
           }
+
         }).filter(el => !collectedPokemonSet.has(el.id))
 
         const initalDisplayedSet = fisherYatesShuffle(pokemons, 9)
@@ -66,37 +65,31 @@ const InGame = ({genId, setPage, pages, setGenerationInfo}) => {
         console.error("Failed to fetch collection:", error);
       }
     }
+    if(collectedPokemonSet.size < 151)
+      fetchCollection();
 
-    fetchCollection();
     return () => {
       isMounted = false; // cleanup
     };
   }, []) //On inital page load
 
   const handleCardSelect = (pokemonID) => {
-    setCardsRemaining(prev => {
-      let newValue = prev - 1;
+    setCardsRemaining(prev => prev- 1);
 
-      if(isInCollection(pokemonID)){
-        console.log("In Collection")
+    if(isInCollection(pokemonID)){
         setGameOver(true);
         setGameOverFlag(0);
-        return prev;
-      }else{
-        console.log("Not in collection")
-        setCollecting(prev => new Set(prev).add(pokemonID));
-        if(newValue === 0){
+    }else {
+      setCollecting(prev => new Set(prev).add(pokemonID));
+      if(cardsRemaining - 1 === 0){
           //display pop up for next round
           setGameOver(true);
           setGameOverFlag(1);
-        }else {
-          //reshuffle cards displayed
-          //setDisplayedSet(fisherYatesShuffle(displayedSet))
-        }
-        return newValue;
+      }else {
+        //reshuffle cards displayed
+        //setDisplayedSet(fisherYatesShuffle(displayedSet))
       }
-
-    })
+    }
   }
 
   const isInCollection = (pokemonID) => collecting.has(pokemonID);
@@ -108,17 +101,35 @@ const InGame = ({genId, setPage, pages, setGenerationInfo}) => {
       setGameOver(false);
       setGameOverFlag(0);
   }
+  
+  useEffect(() => {
+    if (!gameOver) return;
+      //update local storage array to include new set of pokemons
+      const updatedCollection = {
+        ...collectedPokemons,
+        [`gen${genId}`]: [
+          ...(collectedPokemons[`gen${genId}`]),
+          ...collecting
+        ]
+      }
+
+      localStorage.setItem('collectionInfo', JSON.stringify(updatedCollection))
+
+      const updatedLevel = {
+        ...storedLevel,
+        [`gen${genId}`]: storedLevel[`gen${genId}`] + 1,
+      }
+      console.log(updatedLevel);
+      localStorage.setItem(`levelInfo`, JSON.stringify(updatedLevel))
+
+      setGenerationInfo(prev => 
+        prev.map(gen => 
+          gen.id === genId ? {...gen, collected: updatedCollection[`gen${genId}`].length} : gen
+        )
+      )
+  }, [gameOver])
 
   const nextGame = () => {
-    //update local storage array to include new set of pokemons
-      collectedPokemons[`gen${genId}`] = [
-        ...(collectedPokemons[`gen${genId}`]),
-        ...collecting
-      ];
-      localStorage.setItem('collectionInfo', JSON.stringify(collectedPokemons))
-      storedLevel[`gen${genId}`] += 1;
-      localStorage.setItem(`levelInfo`, JSON.stringify(storedLevel))
-
       const filtered = notCollected.filter(el => !displayedSet.includes(el));
       setNotCollected(filtered);
       setDisplayedSet(fisherYatesShuffle(filtered, 9));
@@ -129,61 +140,61 @@ const InGame = ({genId, setPage, pages, setGenerationInfo}) => {
       setGameOverFlag(0);
       setCurrentLevel(prev => prev + 1);
 
-      setGenerationInfo(prev => 
-        prev.map(gen => 
-          gen.id === genId ? {...gen, collected: collectedPokemons[`gen${genId}`].length} : gen
-        )
-      )
-
   }
 
-  console.log("current level " + currentLevel);
-  console.log(notCollected);
-  console.log(collectedPokemons[`gen${genId}`]);
-  console.log(displayedSet);
   console.log(collecting);
-  
+
   return (
     <main className='page-container'>
-      <div className="game-header">
-        <p>{cardsRemaining} cards remaining</p>
-        <p>Level {currentLevel}</p>
-      </div>
-      {gameOver && 
-      <GameOverDialog 
-        setPage={setPage}
-        pages={pages}
-        resetGame={resetGame}
-        gameOverFlag={gameOverFlag}
-        nextGame={nextGame}
-      />
-      
-      }
-      <div className="game-container">
-        {loading ? 
-            <div className='game-loader'>
-              Loading
-            </div>
-          :
-          <div className="game-card-grid">
-            {displayedSet.map((pokemon) => {
-              const pokemonName = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)
-              return (
-                <div className="game-card" onClick={!gameOver ? () => handleCardSelect(pokemon.id) : undefined}>
-                  <div className="game-card-artwork">
-                    <img src={pokemon.artworkUrl}/>
-                  </div>
+      {collectedPokemonSet.size === 151 ?
+      <>
+        <h2>Collection Completed!</h2>
+        <p>Proceed to next region and collect new pokemons!</p>
+      </>
+        :
+      <>
+        <div className="game-header">
+          <p>{cardsRemaining} cards remaining</p>
+          <p>Level {currentLevel}</p>
+        </div>
 
-                  <div className="game-card-title">
-                    <h3>{pokemonName}</h3>
-                  </div>
-                </div>
-              )
-            })}
-
-          </div>
+        {gameOver && 
+          <GameOverDialog 
+            setPage={setPage}
+            pages={pages}
+            resetGame={resetGame}
+            gameOverFlag={gameOverFlag}
+            nextGame={nextGame}
+          />
         }
-      </div>
+        
+        <div className="game-container">
+          {loading ? 
+              <div className='game-loader'>
+                Loading
+              </div>
+            :
+            <div className="game-card-grid">
+              {displayedSet.map((pokemon) => {
+                const pokemonName = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)
+                return (
+                  <div className="game-card" onClick={!gameOver ? () => handleCardSelect(pokemon.id) : undefined}>
+                    <div className="game-card-artwork">
+                      <img src={pokemon.artworkUrl}/>
+                    </div>
+
+                    <div className="game-card-title">
+                      <h3>{pokemonName}</h3>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          }
+        </div>
+      </>
+      }
+      
     </main>
   )
 }

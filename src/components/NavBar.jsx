@@ -23,6 +23,7 @@ const NavBar = ({page, pages, setPage, setCollectionInfo}) => {
     setIsDialogOpen(true);
   }
 
+  //TO-DO - CLEAR LEVELS
   const clearGameData = () => {
     console.log(`clear game data`);
     let collectionInfo = JSON.parse(localStorage.getItem(`collectionInfo`)) || {};
@@ -30,6 +31,21 @@ const NavBar = ({page, pages, setPage, setCollectionInfo}) => {
       collectionInfo[key] = [];
     })
     localStorage.setItem(`collectionInfo`, JSON.stringify(collectionInfo));
+
+    const levelInfo = {
+      gen1: 1,
+      gen2: 1,
+      gen3: 1,
+      gen4: 1,
+      gen5: 1,
+      gen6: 1,
+      gen7: 1,
+      gen8: 1,
+      gen9: 1
+    };
+    localStorage.setItem(`levelInfo`, JSON.stringify(levelInfo));
+
+
     setCollectionInfo(collectionInfo);
     setPage(pages.HOME)
   }
