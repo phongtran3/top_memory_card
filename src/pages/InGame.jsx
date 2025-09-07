@@ -59,6 +59,7 @@ const InGame = ({genId, setPage, pages, setGenerationInfo}) => {
         if (isMounted) {
           setNotCollected(pokemons);
           setDisplayedSet(initalDisplayedSet)
+          setCardsRemaining(Math.min(initalDisplayedSet.length, 9))
           setLoading(false);
         }
       }catch (error){
@@ -87,7 +88,7 @@ const InGame = ({genId, setPage, pages, setGenerationInfo}) => {
           setGameOverFlag(1);
       }else {
         //reshuffle cards displayed
-        //setDisplayedSet(fisherYatesShuffle(displayedSet))
+        setDisplayedSet(fisherYatesShuffle(displayedSet))
       }
     }
   }
@@ -104,6 +105,8 @@ const InGame = ({genId, setPage, pages, setGenerationInfo}) => {
   
   useEffect(() => {
     if (!gameOver) return;
+
+    console.log("Game Over")
       //update local storage array to include new set of pokemons
       const updatedCollection = {
         ...collectedPokemons,
@@ -142,8 +145,6 @@ const InGame = ({genId, setPage, pages, setGenerationInfo}) => {
 
   }
 
-  console.log(collecting);
-
   return (
     <main className='page-container'>
       {collectedPokemonSet.size === 151 ?
@@ -153,10 +154,7 @@ const InGame = ({genId, setPage, pages, setGenerationInfo}) => {
       </>
         :
       <>
-        <div className="game-header">
-          <p>{cardsRemaining} cards remaining</p>
-          <p>Level {currentLevel}</p>
-        </div>
+        
 
         {gameOver && 
           <GameOverDialog 
@@ -174,22 +172,32 @@ const InGame = ({genId, setPage, pages, setGenerationInfo}) => {
                 Loading
               </div>
             :
-            <div className="game-card-grid">
-              {displayedSet.map((pokemon) => {
-                const pokemonName = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)
-                return (
-                  <div className="game-card" onClick={!gameOver ? () => handleCardSelect(pokemon.id) : undefined}>
-                    <div className="game-card-artwork">
-                      <img src={pokemon.artworkUrl}/>
-                    </div>
+            <>
+              <div className="game-header">
+                <p>{cardsRemaining} cards remaining</p>
+                <p>Level {currentLevel}</p>
+              </div>
+              <div className="game-card-grid">
+                {displayedSet.map((pokemon) => {
+                  const pokemonName = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)
+                  return (
+                    <div 
+                      className="game-card" 
+                      onClick={!gameOver ? () => handleCardSelect(pokemon.id) : undefined}
+                      key={pokemon.id}
+                    >
+                      <div className="game-card-artwork">
+                        <img src={pokemon.artworkUrl}/>
+                      </div>
 
-                    <div className="game-card-title">
-                      <h3>{pokemonName}</h3>
+                      <div className="game-card-title">
+                        <h3>{pokemonName}</h3>
+                      </div>
                     </div>
-                  </div>
-                )
-              })}
-            </div>
+                  )
+                })}
+              </div>
+            </>
           }
         </div>
       </>
