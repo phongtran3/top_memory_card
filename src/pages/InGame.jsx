@@ -97,14 +97,14 @@ const InGame = ({genId, setPage, pages, setGenerationInfo}) => {
 
   const resetGame = () =>{
       setCollecting(new Set());
-      setCardsRemaining(9);
+      setCardsRemaining(Math.min(displayedSet.length, 9));
       setDisplayedSet(fisherYatesShuffle(displayedSet))
       setGameOver(false);
       setGameOverFlag(0);
   }
   
   useEffect(() => {
-    if (!gameOver) return;
+    if (!gameOver || gameOverFlag === 0) return;
 
     console.log("Game Over")
       //update local storage array to include new set of pokemons
@@ -138,7 +138,7 @@ const InGame = ({genId, setPage, pages, setGenerationInfo}) => {
       setDisplayedSet(fisherYatesShuffle(filtered, 9));
 
       setCollecting(new Set());
-      setCardsRemaining(9);
+      setCardsRemaining(Math.min(displayedSet.length, 9));
       setGameOver(false);
       setGameOverFlag(0);
       setCurrentLevel(prev => prev + 1);
