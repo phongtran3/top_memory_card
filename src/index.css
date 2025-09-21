@@ -1,9 +1,20 @@
+@import "tailwindcss";
+
+
+
+@theme {
+  --color-pokemonBlue: #2A75BB;
+  --color-pokemonYellow: #FFCB05;
+  --color-pokemonRed: #FF0000;
+  --color-black: #3D3D3D;
+}
+
 :root {
-  --pokemonYellow: '#FFCB05';
+  /* --pokemonYellow: '#FFCB05';
   --pokemonBlue: '#2A75BB';
   --red: '#FF0000';
   --white: '#FFFFF';
-  --black: '#3D3D3D';
+  --black: '#3D3D3D'; */
 
   --font-size-body: '16px';
   --font-family: 'pokemon solid','Times New Roman', Times, serif;
@@ -11,6 +22,10 @@
 
 *, *::before, *::after {
   box-sizing: border-box;
+}
+
+button {
+  cursor: pointer;
 }
 
 h1,
@@ -48,7 +63,7 @@ body {
 }
 
 
-nav {
+/* nav {
   position: fixed;
   bottom: 0;
-}
+} */

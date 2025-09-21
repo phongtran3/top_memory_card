@@ -1,8 +1,11 @@
-import React, {useState} from 'react'
+import  {useState} from 'react'
 import SettingsDialog from './SettingsDialog';
 
 const NavBar = ({page, pages, setPage, setCollectionInfo}) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+
 
   const handleHome = () => {
     setPage(pages.HOME)
@@ -58,15 +61,89 @@ const NavBar = ({page, pages, setPage, setCollectionInfo}) => {
             onClear={clearGameData}
       >
       </SettingsDialog>
+      {isMenuOpen && <div className="fixed inset-0 bg-[rgba(0,0,0,0.5)]"></div>}
 
- 
-      <nav>
-        <ul>
-          <li className="nav-item"><button className='nav-btn' onClick={handleHome} >Home</button></li>
-          <li className="nav-item"><button className='nav-btn' onClick={handlePlay} >Play</button></li>
-          <li className="nav-item"><button className='nav-btn' onClick={handleCollection} >Collection</button></li>
-          <li className="nav-item"><button className='nav-btn' onClick={openSetting} >Settings</button></li>
+      <nav className='text-black p-2 flex justify-end fixed bottom-0 left-0 z-100 w-full'>
+        {/*Desktop Links*/}
+        <ul className='hidden md:flex'>
+          <li className=''>
+            <button className='' onClick={handleHome} >
+              <span className="material-symbols-outlined">home</span>
+            </button>
+          </li>
+
+          <li className=''>
+            <button className='' onClick={handlePlay} >
+              <span className="material-symbols-outlined">playing_cards</span>
+            </button>
+          </li>
+
+          <li className=''>
+            <button className='' onClick={handleCollection} >
+              <span className="material-symbols-outlined">gallery_thumbnail</span>
+            </button>
+          </li>
+          <li className=''>
+            <button className='' onClick={openSetting} >
+              <span className="material-symbols-outlined">settings</span>
+            </button>
+          </li>
         </ul>
+
+        {/* Hamburger button for mobile */}
+        <button 
+          className='md:hidden bg-pokemonYellow rounded p-1.5 hover:brightness-90'
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+          {isMenuOpen ? 
+            <span className='material-symbols-outlined'>close</span>
+          : 
+            <span className='material-symbols-outlined'>menu</span>
+          }
+        </button>  
+
+
+
+         {/*Mobile */}
+        <div 
+          className={`fixed right-0 bottom-0 bg-white h-full w-2/3 shadow-lg transform transition-transform duration-300 ease-in-out z-101 ${isMenuOpen ? "translate-x-0" : "translate-x-full"} md:hidden`}
+        >
+
+          <ul className='md:flex h-full '>
+            <li className=''>
+              <button className='' onClick={handleHome} >
+                <span className="material-symbols-outlined">home</span>
+              </button>
+            </li>
+
+            <li className=''>
+              <button className='' onClick={handlePlay} >
+                <span className="material-symbols-outlined">playing_cards</span>
+              </button>
+            </li>
+
+            <li className=''>
+              <button className='' onClick={handleCollection} >
+                <span className="material-symbols-outlined">gallery_thumbnail</span>
+              </button>
+            </li>
+            <li className=''>
+              <button className='' onClick={openSetting} >
+                <span className="material-symbols-outlined">settings</span>
+              </button>
+            </li>
+
+            <button 
+              className='md:hidden'
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              <span className='material-symbols-outlined'>close</span>
+            </button>  
+
+          </ul>
+
+        </div>
+
       </nav>
     </>
   )
