@@ -13,11 +13,13 @@ const NavBar = ({page, pages, setPage, setCollectionInfo}) => {
 
   const handlePlay = () => {
     if(page === pages.GAME_SELECT) return;
+    setIsMenuOpen(false);
     setPage(pages.GAME_SELECT)
   }
 
    const handleCollection = () => {
     if(page === pages.COLLECTION_SELECT) return;
+    setIsMenuOpen(false);
     setPage(pages.COLLECTION_SELECT)
   }
 
@@ -92,7 +94,7 @@ const NavBar = ({page, pages, setPage, setCollectionInfo}) => {
 
         {/* Hamburger button for mobile */}
         <button 
-          className='md:hidden bg-pokemonYellow rounded p-1.5 hover:brightness-90'
+          className='md:hidden bg-pokemonYellow rounded p-1.5 hover:brightness-90 hover:scale-110'
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           {isMenuOpen ? 
@@ -109,35 +111,35 @@ const NavBar = ({page, pages, setPage, setCollectionInfo}) => {
           className={`fixed right-0 bottom-0 bg-white h-full w-2/3 shadow-lg transform transition-transform duration-300 ease-in-out z-101 ${isMenuOpen ? "translate-x-0" : "translate-x-full"} md:hidden`}
         >
 
-          <ul className='md:flex h-full '>
-            <li className=''>
-              <button className='' onClick={handleHome} >
-                <span className="material-symbols-outlined">home</span>
+          <ul className='h-full flex flex-col items-end justify-end gap-4 p-4'>
+            <li>
+              <button className='hover:text-pokemonBlue' onClick={handleHome} >
+                <span className="material-symbols-outlined align-middle">home</span> <span>Home</span>
               </button>
             </li>
 
-            <li className=''>
-              <button className='' onClick={handlePlay} >
-                <span className="material-symbols-outlined">playing_cards</span>
+            <li>
+              <button className='hover:text-pokemonBlue' onClick={handlePlay} >
+                <span className="material-symbols-outlined align-middle">playing_cards</span> <span>Play</span>
               </button>
             </li>
 
-            <li className=''>
-              <button className='' onClick={handleCollection} >
-                <span className="material-symbols-outlined">gallery_thumbnail</span>
+            <li>
+              <button className='hover:text-pokemonBlue' onClick={handleCollection} >
+                <span className="material-symbols-outlined align-middle">gallery_thumbnail</span> <span>Collection</span>
               </button>
             </li>
-            <li className=''>
-              <button className='' onClick={openSetting} >
-                <span className="material-symbols-outlined">settings</span>
+            <li>
+              <button className='hover:text-pokemonBlue' onClick={openSetting} >
+                <span className="material-symbols-outlined align-middle">settings</span> <span>Settings</span>
               </button>
             </li>
 
             <button 
-              className='md:hidden'
+              className='hover:text-pokemonRed'
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
-              <span className='material-symbols-outlined'>close</span>
+              <span className='material-symbols-outlined align-middle'>close</span>
             </button>  
 
           </ul>
