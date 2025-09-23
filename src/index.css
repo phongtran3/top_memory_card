@@ -38,6 +38,7 @@ p{
 body { 
   font-size: var(--font-size-body);
   font-family: var(--font-family);
+  letter-spacing: .1rem;
 }
 
 .selection-card-artwork img,

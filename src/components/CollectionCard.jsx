@@ -1,9 +1,14 @@
-import React, {useState} from 'react'
+import {useState} from 'react'
+// import { useMediaQuery } from "react-responsive";
+
+
+//On big screen - need to create a dialog instead of expanding like an accordion
 
 const CollectionCard = ({pokemon, currCollectionSet}) => {
   const [cardOpen, setCardOpen] = useState(false);
   const pokemonName = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)
 
+  // const isMobile = useMediaQuery({ maxWidth: 500 });
 
   const handleShowMore = () => {
     setCardOpen(true);
@@ -26,6 +31,7 @@ const CollectionCard = ({pokemon, currCollectionSet}) => {
               </div>
 
               {cardOpen ? 
+                
                 <div className="data-container">
                   <button className="close-btn" onClick={() => handleClose()}>X</button>
 
@@ -46,6 +52,7 @@ const CollectionCard = ({pokemon, currCollectionSet}) => {
 
                   </div>
                 </div>
+                
                 :
                 <div className="show-more">
                   <button 
@@ -55,11 +62,12 @@ const CollectionCard = ({pokemon, currCollectionSet}) => {
                       Show More
                   </button>
                 </div>
-            
               }
               
               
-            </> :
+            </> 
+            :
+
             <>
               <h3>#{pokemon.id}</h3>
             </>

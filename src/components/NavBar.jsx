@@ -1,5 +1,6 @@
 import  {useState} from 'react'
 import SettingsDialog from './SettingsDialog';
+import NavButtton from './NavButtton';
 
 const NavBar = ({page, pages, setPage, setCollectionInfo}) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -63,38 +64,35 @@ const NavBar = ({page, pages, setPage, setCollectionInfo}) => {
             onClear={clearGameData}
       >
       </SettingsDialog>
-      {isMenuOpen && <div className="fixed inset-0 bg-[rgba(0,0,0,0.5)]"></div>}
+      {isMenuOpen && 
+        <div 
+          className="fixed inset-0 bg-[rgba(0,0,0,0.5)]" 
+          onClick={() => setIsMenuOpen(!isMenuOpen)}>
+        </div>
+      }
 
-      <nav className='text-black p-2 flex justify-end fixed bottom-0 left-0 z-100 w-full'>
+      <nav className='text-black bottom-0 left-0 fixed z-100 w-full'>
         {/*Desktop Links*/}
-        <ul className='hidden md:flex'>
+        <ul className='hidden md:grid grid-cols-4 divide-x-4 divide-black text-center'>
           <li className=''>
-            <button className='' onClick={handleHome} >
-              <span className="material-symbols-outlined">home</span>
-            </button>
+            <NavButtton icon="home" label={"Home"} onClick={handleHome}/>
           </li>
 
           <li className=''>
-            <button className='' onClick={handlePlay} >
-              <span className="material-symbols-outlined">playing_cards</span>
-            </button>
+            <NavButtton icon="playing_cards" label={"Play"} onClick={handlePlay}/>
           </li>
 
           <li className=''>
-            <button className='' onClick={handleCollection} >
-              <span className="material-symbols-outlined">gallery_thumbnail</span>
-            </button>
+            <NavButtton icon="gallery_thumbnail" label={"Collection"} onClick={handleCollection}/>
           </li>
           <li className=''>
-            <button className='' onClick={openSetting} >
-              <span className="material-symbols-outlined">settings</span>
-            </button>
+            <NavButtton icon="settings" label={"Settings"} onClick={openSetting}/>
           </li>
         </ul>
 
         {/* Hamburger button for mobile */}
         <button 
-          className='md:hidden bg-pokemonYellow rounded p-1.5 hover:brightness-90 hover:scale-110'
+          className='md:hidden float-right m-3 bg-pokemonYellow rounded p-1.5 hover:brightness-90 hover:scale-110'
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           {isMenuOpen ? 
@@ -108,30 +106,30 @@ const NavBar = ({page, pages, setPage, setCollectionInfo}) => {
 
          {/*Mobile */}
         <div 
-          className={`fixed right-0 bottom-0 bg-white h-full w-2/3 shadow-lg transform transition-transform duration-300 ease-in-out z-101 ${isMenuOpen ? "translate-x-0" : "translate-x-full"} md:hidden`}
+          className={`fixed right-0 bottom-0 bg-white h-full w-3/5 shadow-lg transform transition-transform duration-300 ease-in-out z-101 ${isMenuOpen ? "translate-x-0" : "translate-x-full"} md:hidden`}
         >
 
           <ul className='h-full flex flex-col items-end justify-end gap-4 p-4'>
             <li>
               <button className='hover:text-pokemonBlue' onClick={handleHome} >
-                <span className="material-symbols-outlined align-middle">home</span> <span>Home</span>
+                <span className="material-symbols-outlined align-middle">home</span> <span className='tracking-widest'>Home</span>
               </button>
             </li>
 
             <li>
               <button className='hover:text-pokemonBlue' onClick={handlePlay} >
-                <span className="material-symbols-outlined align-middle">playing_cards</span> <span>Play</span>
+                <span className="material-symbols-outlined align-middle">playing_cards</span> <span className='tracking-widest'>Play</span>
               </button>
             </li>
 
             <li>
               <button className='hover:text-pokemonBlue' onClick={handleCollection} >
-                <span className="material-symbols-outlined align-middle">gallery_thumbnail</span> <span>Collection</span>
+                <span className="material-symbols-outlined align-middle">gallery_thumbnail</span> <span className='tracking-widest'>Collection</span>
               </button>
             </li>
             <li>
               <button className='hover:text-pokemonBlue' onClick={openSetting} >
-                <span className="material-symbols-outlined align-middle">settings</span> <span>Settings</span>
+                <span className="material-symbols-outlined align-middle">settings</span> <span className='tracking-widest'>Settings</span>
               </button>
             </li>
 
