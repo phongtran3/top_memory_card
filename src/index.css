@@ -7,6 +7,7 @@
   --color-pokemonYellow: #FFCB05;
   --color-pokemonRed: #FF0000;
   --color-black: #3D3D3D;
+  --color-white: #FFFFFF;
 }
 
 :root {
@@ -38,7 +39,7 @@ p{
 body { 
   font-size: var(--font-size-body);
   font-family: var(--font-family);
-  letter-spacing: .1rem;
+  letter-spacing: .15rem;
 }
 
 .selection-card-artwork img,

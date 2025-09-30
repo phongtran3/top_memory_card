@@ -1,5 +1,6 @@
 import {useState} from 'react'
 import SettingsDialog from "../components/SettingsDialog";
+import HomeMenuButton from "../components/HomeMenuButton"
 
 const Home = ({setPage, pages, setCollectionInfo}) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -48,15 +49,18 @@ const Home = ({setPage, pages, setCollectionInfo}) => {
   }
 
   return (
-    <main>
-      <div className="title-section">
-        <h1>Pokémon Memory Card League</h1>
+    <main className="h-screen flex flex-col bg-[url('./assets/images/pokemon-bg.jpg')] bg-no-repeat bg-cover bg-[80%_100%]">
+
+      <div className="text-center mt-8">
+        <h1 className='text-[clamp(1.75rem,5vw,4rem)]' >Pokémon Memory Card League</h1>
       </div>
 
-      <div className="menu">
-        <button className='menu-btn' onClick={handlePlay}>Play</button>
-        <button className='menu-btn' onClick={handleCollection}>Collections</button>
-        <button className='menu-btn' onClick={openSetting} >Settings</button>
+      <div className="flex flex-grow justify-center items-center" >
+        <div className="flex flex-col w-5/6 max-w-sm rounded-lg p-6 m-auto items-center justify-center gap-6 bg-[white]/60 ">
+          <HomeMenuButton icon="playing_cards" label={"Play"} onClick={handlePlay}/>
+          <HomeMenuButton icon="gallery_thumbnail" label={"Collection"} onClick={handleCollection}/>
+          <HomeMenuButton icon="settings" label={"Settings"} onClick={openSetting}/>
+        </div>
       </div>
 
       <SettingsDialog
