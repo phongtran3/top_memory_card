@@ -64,6 +64,7 @@ const NavBar = ({page, pages, setPage, setCollectionInfo}) => {
             onClear={clearGameData}
       >
       </SettingsDialog>
+      
       {isMenuOpen && 
         <div 
           className="fixed inset-0 bg-[rgba(0,0,0,0.5)]" 

@@ -49,9 +49,9 @@ const Home = ({setPage, pages, setCollectionInfo}) => {
   }
 
   return (
-    <main className="h-screen flex flex-col bg-[url('./assets/images/pokemon-bg.jpg')] bg-no-repeat bg-cover bg-[80%_100%]">
+    <main className="h-screen flex flex-col gap-32 bg-[url('./assets/images/pokemon-bg.jpg')] bg-no-repeat bg-cover bg-[80%_100%]">
 
-      <div className="text-center mt-8">
+      <div className="text-center mt-12 px-2">
         <h1 className='text-[clamp(1.75rem,5vw,4rem)]' >Pokémon Memory Card League</h1>
       </div>
 
