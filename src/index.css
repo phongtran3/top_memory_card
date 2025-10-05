@@ -42,7 +42,7 @@ body {
   letter-spacing: .15rem;
 }
 
-.selection-card-artwork img,
+/* .selection-card-artwork img,
 .collection-card-img img {
   max-width: 100%;
 }
@@ -62,7 +62,7 @@ body {
 .collection-card-img img,
 .game-card-artwork img {
   width: 100px;
-}
+} */
 
 
 /* nav {

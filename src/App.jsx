@@ -7,7 +7,6 @@ import CollectionSelect from "./pages/CollectionSelect";
 import InGame from "./pages/InGame";
 import InCollection from "./pages/InCollection";
 import NavBar from "./components/NavBar";
-import SettingsDialog from "./components/SettingsDialog";
 
 import kantoStarters from '../src/assets/images/kanto-starters.webp';
 import jhotoStarters from '../src/assets/images/jhoto-starters.webp';
