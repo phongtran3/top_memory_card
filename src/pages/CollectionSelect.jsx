@@ -25,8 +25,7 @@ const CollectionSelect = ({generationInfo, pages, setPage, setCollectionGenId}) 
 							return (
 								<div 
 									className='selection-card flex flex-col justify-center items-center gap-2 w-full p-4 border-solid border-2 cursor-pointer rounded-2xl shadow-xl/20 bg-[white] sm:w-[calc(50%-0.5rem)] lg:w-[calc(33%-0.5rem)]
-									hover:border-3 hover:rotate-1 origin-right transition-transform duration-200
-									' 
+									hover:border-blue-500 hover:rotate-[1deg] origin-right transition-transform duration-200 ' 
 									key={gen.id} 
 									onClick={() => handleCollectionSelect(gen.id)}
 								>
