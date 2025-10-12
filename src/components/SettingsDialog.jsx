@@ -30,7 +30,7 @@ const SettingsDialog = ({isDialogOpen, onClose, onClear}) => {
         </div>
 
         <div className="flex mt-4 gap-4 flex-col">
-          {isConfirm && <p>Warning! Clearing game data will reset all your game's progress. If you wish to proceed click the button again.</p>}
+          {isConfirm && <p>Warning! Clearing game data will reset all your game's progress. If you wish to proceed, click the button again.</p>}
 
           <button 
             className="bg-pokemonYellow py-2 px-4 rounded-md hover:text-pokemonBlue" 

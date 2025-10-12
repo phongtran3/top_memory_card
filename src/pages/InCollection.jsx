@@ -76,56 +76,22 @@ const InCollection = ({genId}) => {
 
   console.log(collection);
   return (
-    <main className='page-container'>
-      <div className="page-header">
-        <h2>Generation {genId} Pokémon</h2>
+    <main className='page-container md:pb-20'>
+
+      <div className="page-header p-4">
+        <h2 className='text-3xl text-center '>Generation {genId} Pokémon</h2>
       </div>
-      <div className="collection-container">
+
+      <div className="collection-container max-w-6xl mt-6 m-auto p-1">
         {loading ? 
-            <div className='collection-loader'>
-              Loading
+            <div className='collection-loader text-center flex flex-col items-center gap-8'>
+              <div class="loader"></div>
+              <img src="https://i.gifer.com/5FBP.gif" class="loading-gif" alt="loading pokemon GIF of red and pikachu" />
             </div>
           :
-            <div className='collection-grid'>
+            <div className='collection-grid grid [grid-template-columns:repeat(auto-fill,minmax(200px,1fr))] gap-4'>
               {collection.map((pokemon) => 
                 <CollectionCard key={pokemon.id} pokemon={pokemon} currCollectionSet={currCollectionSet}/>
-                // const pokemonName = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)
-                // return (
-                //   <div className="collection-card" key={pokemon.id}>
-                //     {currCollectionSet.has(pokemon.id) ? 
-                //       <>
-                //         <div className="collection-card-header">
-                //           <h3>#{pokemon.id} {pokemonName}</h3>
-                //         </div>
-
-                //         <div className="collection-card-img">
-                //           <img src={pokemon.artworkUrl}/>
-                //         </div>
-
-                //         <div className="data-container">
-                //           <div className="type-container">
-                //             {pokemon.types.map((type,index) => {
-                //               return (
-                //               <span> {type}{index < pokemon.types.length - 1 ? ' · ' : ''}</span>
-                //               )
-                //             })}
-                //           </div>
-                //           <div className="stats-container">
-                //             {pokemon.stats.map((stat) => {
-                //               return (
-                //                 <p>{stat.statName} {stat.baseStat}</p>
-                //               )
-                //             })}
-
-                //           </div>
-                //         </div>
-                //       </> :
-                //       <>
-                //         <h3>#{pokemon.id}</h3>
-                //       </>
-                //     }
-                //   </div>
-                // )
               )}
             </div>
           }

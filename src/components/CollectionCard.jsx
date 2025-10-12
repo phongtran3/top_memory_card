@@ -19,14 +19,14 @@ const CollectionCard = ({pokemon, currCollectionSet}) => {
   }
 
   return (
-    <div className="collection-card">
+    <div className="collection-card flex flex-col items-center justify-center p-4 min-h-[275px] border-2 border-solid rounded-lg">
          {currCollectionSet.has(pokemon.id) ? 
             <>
               <div className="collection-card-header">
                 <h3>#{pokemon.id} {pokemonName}</h3>
               </div>
 
-              <div className="collection-card-img">
+              <div className="collection-card-img m-4">
                 <img src={pokemon.artworkUrl}/>
               </div>
 
@@ -54,9 +54,9 @@ const CollectionCard = ({pokemon, currCollectionSet}) => {
                 </div>
                 
                 :
-                <div className="show-more">
+                <div className="show-more mt-2">
                   <button 
-                    className="show-more-btn"
+                    className="show-more-btn bg-pokemonYellow py-2 px-4 rounded-md hover:text-pokemonBlue"
                     onClick={() => handleShowMore()}
                   >
                       Show More
