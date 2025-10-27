@@ -9,17 +9,20 @@ const NavBar = ({page, pages, setPage, setCollectionInfo}) => {
 
 
   const handleHome = () => {
+    document.body.style.overflow = "";
     setPage(pages.HOME)
   }
 
   const handlePlay = () => {
     if(page === pages.GAME_SELECT) return;
+    document.body.style.overflow = "";
     setIsMenuOpen(false);
     setPage(pages.GAME_SELECT)
   }
 
    const handleCollection = () => {
     if(page === pages.COLLECTION_SELECT) return;
+    document.body.style.overflow = "";
     setIsMenuOpen(false);
     setPage(pages.COLLECTION_SELECT)
   }

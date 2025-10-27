@@ -91,7 +91,9 @@ const InCollection = ({genId}) => {
           :
             <div className='collection-grid grid [grid-template-columns:repeat(auto-fill,minmax(200px,1fr))] gap-4'>
               {collection.map((pokemon) => 
+                <div className="border-2 border-solid rounded-lg bg-white">
                 <CollectionCard key={pokemon.id} pokemon={pokemon} currCollectionSet={currCollectionSet}/>
+                </div>
               )}
             </div>
           }
