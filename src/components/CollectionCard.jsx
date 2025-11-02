@@ -28,6 +28,25 @@ const CollectionCard = ({pokemon, currCollectionSet}) => {
 
   }
 
+  const getBarColor = (stat) => {
+    switch (true) {
+    case stat >= 1 && stat <= 29:
+      return '#f34444'; // Very Bad
+    case stat >= 30 && stat <= 59:
+      return '#ff7f0f'; // Bad
+    case stat >= 60 && stat <= 89:
+      return '#ffdd57'; // Bad - Mediocre
+    case stat >= 90 && stat <= 119:
+      return '#a0e515'; // Decent - Good
+    case stat >= 120 && stat <= 149:
+      return '#23cd5e'; // Very Good
+    case stat >= 150 && stat <= 255:
+      return '#00c2b8'; // Phenomenal
+    default:
+      return '#000000';
+  }
+  }
+
   const handleClose = () => {
     setCardOpen(false);
   }
@@ -127,7 +146,7 @@ const CollectionCard = ({pokemon, currCollectionSet}) => {
 
               {cardOpen ? 
                 
-                <div className="data-container">
+                <div className="data-container w-full">
                   {cardOpen && 
                     <button 
                       className="close-btn absolute top-2 right-4 hover:text-pokemonRed" 
@@ -135,24 +154,41 @@ const CollectionCard = ({pokemon, currCollectionSet}) => {
                     >X
                     </button>
                   }
-                  <div className="type-container align-middle mb-2">
+                  <div className="type-container text-center align-middle mb-2">
                     {pokemon.types.map((type,index) => {
                       return (
                       <span key={type}> {type}{index < pokemon.types.length - 1 ? ' · ' : ''}</span>
                       )
                     })}
                   </div>
+{/* className="stats-container flex flex-col gap-2 w-full sm:px-8" */}
+                  <table class="table-auto w-full ">
+                    <tbody>
+                      {pokemon.stats.map((stat) => {
+                        const barWidth = ((stat.baseStat / 255) * 100).toFixed(2)
+                        const barColor = getBarColor(stat.baseStat);
+                        console.log(barWidth);
 
-                  <div className="stats-container">
-                    {pokemon.stats.map((stat) => {
-                      return (
-                        <p key={stat.stateName}>{stat.statName} {stat.baseStat}</p>
-                      )
-                    })}
+                        return (
+                            <tr>
+                              <td className='p-1 text-left whitespace-nowrap' >{stat.statName}</td>
+                              <td className='p-1 text-right whitespace-nowrap' >{stat.baseStat}</td>
+                              <td className='p-1 w-full'>
+                                <div  
+                                  className={`h-4 p-1 rounded-sm border border-black/60`}
+                                  style={{
+                                    width: `${barWidth}%`,
+                                    backgroundColor: `${barColor}`
+                                  }}>
+                                </div>
+                              </td>
+                            </tr>
+                        )
 
-                  </div>
+                      })}
+                    </tbody>
+                  </table>
                 </div>
-                
                 :
                 <div className="show-more mt-2">
                   <button 
