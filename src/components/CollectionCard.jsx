@@ -1,18 +1,11 @@
 import {useState, useEffect} from 'react'
-// import { useMediaQuery } from "react-responsive";
-
-
-//On big screen - need to create a dialog instead of expanding like an accordion
 
 const CollectionCard = ({pokemon, currCollectionSet}) => {
   const [cardOpen, setCardOpen] = useState(false);
-  
   const [oldPos, setOldPos] = useState(null);
   const [clickedTarget, setClickedTarget] = useState();
 
   const pokemonName = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)
-
-  // const isMobile = useMediaQuery({ maxWidth: 500 });
 
   const handleShowMore = (e) => {
     const currentTarget = e.target.parentElement.parentElement;
@@ -24,37 +17,29 @@ const CollectionCard = ({pokemon, currCollectionSet}) => {
     if(!cardOpen){
       setOldPos(() => currentTarget.getBoundingClientRect());
     }
-
-
   }
 
   const getBarColor = (stat) => {
     switch (true) {
-    case stat >= 1 && stat <= 29:
-      return '#f34444'; // Very Bad
-    case stat >= 30 && stat <= 59:
-      return '#ff7f0f'; // Bad
-    case stat >= 60 && stat <= 89:
-      return '#ffdd57'; // Bad - Mediocre
-    case stat >= 90 && stat <= 119:
-      return '#a0e515'; // Decent - Good
-    case stat >= 120 && stat <= 149:
-      return '#23cd5e'; // Very Good
-    case stat >= 150 && stat <= 255:
-      return '#00c2b8'; // Phenomenal
-    default:
-      return '#000000';
-  }
-  }
-
-  const handleClose = () => {
-    setCardOpen(false);
+      case stat >= 1 && stat <= 29:
+        return '#f34444'; // Very Bad
+      case stat >= 30 && stat <= 59:
+        return '#ff7f0f'; // Bad
+      case stat >= 60 && stat <= 89:
+        return '#ffdd57'; // Bad - Mediocre
+      case stat >= 90 && stat <= 119:
+        return '#a0e515'; // Decent - Good
+      case stat >= 120 && stat <= 149:
+        return '#23cd5e'; // Very Good
+      case stat >= 150 && stat <= 255:
+        return '#00c2b8'; // Phenomenal
+      default:
+        return '#000000';
+    }
   }
 
   useEffect(() => {
-    console.log("useEffect")
     if(cardOpen) {
-      console.log("Showing more details...")
       document.body.style.overflow = "hidden";
       const rect = clickedTarget.getBoundingClientRect();
 
@@ -77,7 +62,6 @@ const CollectionCard = ({pokemon, currCollectionSet}) => {
       }, 0);
 
     } else if (!cardOpen && clickedTarget) {
-      console.log("Closing details...")
       const oldRect = oldPos;
       const rect = clickedTarget.getBoundingClientRect();
 
@@ -120,19 +104,14 @@ const CollectionCard = ({pokemon, currCollectionSet}) => {
       );
 
     }
-
-
-
-
   }, [clickedTarget, cardOpen, oldPos])
-
 
 
   return (
     <>
     {cardOpen && <div className="fixed inset-0 bg-[rgba(0,0,0,0.5)] "></div>}
       
-    <div className="collection-card flex flex-col items-center justify-center p-4 min-h-[275px]  border-solid rounded-lg bg-white">
+    <div className="collection-card flex flex-col items-center justify-center p-4 min-h-[275px]  border-solid rounded-lg bg-[#F5F7FA] ">
          {currCollectionSet.has(pokemon.id) ? 
             <>
               
@@ -161,7 +140,7 @@ const CollectionCard = ({pokemon, currCollectionSet}) => {
                       )
                     })}
                   </div>
-{/* className="stats-container flex flex-col gap-2 w-full sm:px-8" */}
+
                   <table class="table-auto w-full ">
                     <tbody>
                       {pokemon.stats.map((stat) => {

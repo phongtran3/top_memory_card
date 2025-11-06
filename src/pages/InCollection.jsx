@@ -76,22 +76,22 @@ const InCollection = ({genId}) => {
 
   console.log(collection);
   return (
-    <main className='page-container md:pb-20'>
+    <main className='page-container md:pb-20 bg-warmBackground'>
 
       <div className="page-header p-4">
         <h2 className='text-3xl text-center '>Generation {genId} Pokémon</h2>
       </div>
 
-      <div className="collection-container max-w-6xl mt-6 m-auto p-1">
+      <div className="collection-container max-w-6xl mt-6 m-auto p-4">
         {loading ? 
-            <div className='collection-loader text-center flex flex-col items-center gap-8'>
+            <div className='collection-loader text-center flex flex-col items-center gap-8 h-screen'>
               <div class="loader"></div>
               <img src="https://i.gifer.com/5FBP.gif" class="loading-gif" alt="loading pokemon GIF of red and pikachu" />
             </div>
           :
             <div className='collection-grid grid [grid-template-columns:repeat(auto-fill,minmax(200px,1fr))] gap-4'>
               {collection.map((pokemon) => 
-                <div className="border-2 border-solid rounded-lg bg-white">
+                <div className="border-2 border-solid rounded-lg bg-white shadow-md">
                 <CollectionCard key={pokemon.id} pokemon={pokemon} currCollectionSet={currCollectionSet}/>
                 </div>
               )}

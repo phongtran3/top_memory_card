@@ -11,7 +11,7 @@ const CollectionSelect = ({generationInfo, pages, setPage, setCollectionGenId}) 
 	}
 
 	return (
-		<main className='page-container bg-pokemonRed/85 md:pb-16'>
+		<main className='page-container bg-warmBackground md:pb-16'>
 
 				<div className="page-header p-4">
 					<h1 className="text-3xl text-center">Collection</h1>

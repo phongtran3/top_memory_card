@@ -146,7 +146,7 @@ const InGame = ({genId, setPage, pages, setGenerationInfo}) => {
   }
 
   return (
-    <main className='page-container'>
+    <main className='page-container md:pb-20 bg-warmBackground'>
       {collectedPokemonSet.size === 151 ?
       <>
         <h2>Collection Completed!</h2>
@@ -154,8 +154,6 @@ const InGame = ({genId, setPage, pages, setGenerationInfo}) => {
       </>
         :
       <>
-        
-
         {gameOver && 
           <GameOverDialog 
             setPage={setPage}
@@ -166,38 +164,42 @@ const InGame = ({genId, setPage, pages, setGenerationInfo}) => {
           />
         }
         
-        <div className="game-container">
-          {loading ? 
-              <div className='game-loader'>
-                Loading
-              </div>
-            :
-            <>
-              <div className="game-header">
-                <p>{cardsRemaining} cards remaining</p>
-                <p>Level {currentLevel}</p>
-              </div>
-              <div className="game-card-grid">
-                {displayedSet.map((pokemon) => {
-                  const pokemonName = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)
-                  return (
-                    <div 
-                      className="game-card" 
-                      onClick={!gameOver ? () => handleCardSelect(pokemon.id) : undefined}
-                      key={pokemon.id}
-                    >
-                      <div className="game-card-artwork">
-                        <img src={pokemon.artworkUrl}/>
-                      </div>
+        <div className="page-header">
+          <div className="game-header text-center">
+            <p className='p-2'>Level {currentLevel}</p>
+            <p>{loading ? "" : `${cardsRemaining} cards remaining`}</p>
+          </div>
+        </div>
 
-                      <div className="game-card-title">
-                        <h3>{pokemonName}</h3>
-                      </div>
+        <div className="game-container max-w-3xl mt-2 m-auto p-4">
+          {loading ? 
+            <div className='collection-loader text-center flex flex-col items-center gap-8 h-screen'>
+              <div className="loader"></div>
+              <img src="https://i.gifer.com/5FBP.gif" class="loading-gif" alt="loading pokemon GIF of red and pikachu"/>
+            </div>
+          :
+            <div className="game-card-grid grid [grid-template-columns:repeat(auto-fit,minmax(clamp(200px,33%,220px),1fr))] gap-8">
+
+              {displayedSet.map((pokemon) => {
+                const pokemonName = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)
+                return (
+                  <div 
+                    className="game-card p-4 bg-[#F5F7FA] border-2 border-solid rounded-lg cursor-pointer shadow-lg hover:border-blue-500 hover:rotate-[1deg] origin-right transition-transform duration-200" 
+                    onClick={!gameOver ? () => handleCardSelect(pokemon.id) : undefined}
+                    key={pokemon.id}
+                  >
+                    <div className="game-card-artwork">
+                      <img src={pokemon.artworkUrl}/>
                     </div>
-                  )
-                })}
-              </div>
-            </>
+
+                    <div className="game-card-title text-center">
+                      <h3>{pokemonName}</h3>
+                    </div>
+                  </div>
+                )
+              })
+              }
+            </div>
           }
         </div>
       </>

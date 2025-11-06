@@ -11,7 +11,7 @@ const GameSelect = ({generationInfo, pages, setPage, setGameId}) => {
     }
 
   return (
-    <main className='page-container bg-pokemonRed/85 md:pb-16'>
+    <main className='page-container bg-warmBackground md:pb-16'>
 
       <div className="page-header p-4">
         <h2 className="text-3xl text-center">Select Regoin</h2>
