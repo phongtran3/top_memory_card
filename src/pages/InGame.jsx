@@ -146,12 +146,13 @@ const InGame = ({genId, setPage, pages, setGenerationInfo}) => {
   }
 
   return (
-    <main className='page-container md:pb-20 bg-warmBackground'>
+    <main className='page-container md:pb-20 bg-warmBackground min-h-screen'>
       {collectedPokemonSet.size === 151 ?
-      <>
+      <div className='flex flex-col text-center justify-center items-center gap-8 pt-8 px-4 text-2xl'>
         <h2>Collection Completed!</h2>
-        <p>Proceed to next region and collect new pokemons!</p>
-      </>
+        <p>Proceed to next region and collect new Pokemons!</p>
+        <img src="https://i.gifer.com/5IPv.gif" className="loading-gif min-h-60 " alt="pikachu dancing"/>
+      </div>
         :
       <>
         {gameOver && 
@@ -175,7 +176,7 @@ const InGame = ({genId, setPage, pages, setGenerationInfo}) => {
           {loading ? 
             <div className='collection-loader text-center flex flex-col items-center gap-8 h-screen'>
               <div className="loader"></div>
-              <img src="https://i.gifer.com/5FBP.gif" class="loading-gif" alt="loading pokemon GIF of red and pikachu"/>
+              <img src="https://i.gifer.com/5FBP.gif" className="loading-gif" alt="loading pokemon GIF of red and pikachu"/>
             </div>
           :
             <div className="game-card-grid grid [grid-template-columns:repeat(auto-fit,minmax(clamp(200px,33%,220px),1fr))] gap-8">
