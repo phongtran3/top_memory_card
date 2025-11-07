@@ -80,7 +80,6 @@ const CollectionCard = ({pokemon, currCollectionSet}) => {
         clickedTarget.style.height = `${oldRect.height}px`;
         clickedTarget.style.border = "";
         clickedTarget.style.transform = "none";
-
       }, 0);
 
       clickedTarget.addEventListener(
@@ -111,7 +110,7 @@ const CollectionCard = ({pokemon, currCollectionSet}) => {
     <>
     {cardOpen && <div className="fixed inset-0 bg-[rgba(0,0,0,0.5)] "></div>}
       
-    <div className="collection-card flex flex-col items-center justify-center p-4 min-h-[275px]  border-solid rounded-lg bg-[#F5F7FA] ">
+    <div className="collection-card flex flex-col items-center justify-center p-4 min-h-[275px]  border-solid rounded-lg bg-[#F5F7FA]">
          {currCollectionSet.has(pokemon.id) ? 
             <>
               
