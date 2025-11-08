@@ -173,8 +173,10 @@ const App = () => {
     fetchGenerationInfo();
   }, [collectionInfo])
 
-  console.log(generationInfo);
-  console.log(collectionInfo)
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [page]);
+
 
   return (
     <div className="app">

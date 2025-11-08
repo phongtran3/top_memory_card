@@ -106,7 +106,6 @@ const InGame = ({genId, setPage, pages, setGenerationInfo}) => {
   useEffect(() => {
     if (!gameOver || gameOverFlag === 0) return;
 
-    console.log("Game Over")
       //update local storage array to include new set of pokemons
       const updatedCollection = {
         ...collectedPokemons,
@@ -122,7 +121,6 @@ const InGame = ({genId, setPage, pages, setGenerationInfo}) => {
         ...storedLevel,
         [`gen${genId}`]: storedLevel[`gen${genId}`] + 1,
       }
-      console.log(updatedLevel);
       localStorage.setItem(`levelInfo`, JSON.stringify(updatedLevel))
 
       setGenerationInfo(prev => 

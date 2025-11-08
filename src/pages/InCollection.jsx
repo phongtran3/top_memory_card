@@ -14,17 +14,14 @@ const statMap = {
 const InCollection = ({genId}) => {
   const [collection, setCollection] = useState({});
   const [loading, setLoading] = useState(true);
-  const [cardOpen, setCardOpen] = useState(false);
 
   const currCollection = JSON.parse(localStorage.getItem('collectionInfo'))
   const currCollectionSet = new Set(currCollection[`gen${genId}`])
-  console.log(currCollectionSet);
   
   useEffect(() => {
     let isMounted = true;
 
     const fetchCollection = async () => {
-      console.log("In Collection useEffect")
       try {
         const response = await axios.get(`https://pokeapi.co/api/v2/generation/${genId}`);
 
@@ -74,7 +71,6 @@ const InCollection = ({genId}) => {
     };
   }, [])
 
-  console.log(collection);
   return (
     <main className='page-container md:pb-20 bg-warmBackground'>
 
@@ -85,8 +81,8 @@ const InCollection = ({genId}) => {
       <div className="collection-container max-w-6xl mt-6 m-auto p-4">
         {loading ? 
             <div className='collection-loader text-center flex flex-col items-center gap-8 h-screen'>
-              <div class="loader"></div>
-              <img src="https://i.gifer.com/5FBP.gif" class="loading-gif" alt="loading pokemon GIF of red and pikachu" />
+              <div className="loader"></div>
+              <img src="https://i.gifer.com/5FBP.gif" className="loading-gif" alt="loading pokemon GIF of red and pikachu" />
             </div>
           :
             <div className='collection-grid grid [grid-template-columns:repeat(auto-fill,minmax(200px,1fr))] gap-4'>

@@ -9,10 +9,8 @@ const CollectionCard = ({pokemon, currCollectionSet}) => {
 
   const handleShowMore = (e) => {
     const currentTarget = e.target.parentElement.parentElement;
-    console.log(currentTarget);
     setCardOpen(prev => !prev);
     setClickedTarget(currentTarget);
-    console.log(currentTarget.getBoundingClientRect());
 
     if(!cardOpen){
       setOldPos(() => currentTarget.getBoundingClientRect());
@@ -140,13 +138,11 @@ const CollectionCard = ({pokemon, currCollectionSet}) => {
                     })}
                   </div>
 
-                  <table class="table-auto w-full ">
+                  <table className="table-auto w-full ">
                     <tbody>
                       {pokemon.stats.map((stat) => {
                         const barWidth = ((stat.baseStat / 255) * 100).toFixed(2)
                         const barColor = getBarColor(stat.baseStat);
-                        console.log(barWidth);
-
                         return (
                             <tr>
                               <td className='p-1 text-left whitespace-nowrap' >{stat.statName}</td>

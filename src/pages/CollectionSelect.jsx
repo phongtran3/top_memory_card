@@ -1,11 +1,6 @@
-
 const CollectionSelect = ({generationInfo, pages, setPage, setCollectionGenId}) => {
-  console.log("CollectionSelect");
-	console.log(generationInfo);
 
 	const handleCollectionSelect = (genId) => {
-		console.log("Generation " + genId)
-		//setInCollection(true);
 		setPage(pages.IN_COLLECTION)
 		setCollectionGenId(genId);
 	}

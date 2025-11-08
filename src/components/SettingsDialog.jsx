@@ -1,8 +1,6 @@
 import {useState} from 'react'
 
-
 const SettingsDialog = ({isDialogOpen, onClose, onClear}) => {
-  console.log("settings");
   const [isConfirm, setIsConfirm] = useState(false);
   if(!isDialogOpen) return null;
 

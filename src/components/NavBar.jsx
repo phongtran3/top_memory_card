@@ -28,13 +28,11 @@ const NavBar = ({page, pages, setPage, setCollectionInfo}) => {
   }
 
   const openSetting = () => {
-    console.log("openSetting")
     setIsDialogOpen(true);
   }
 
   //TO-DO - CLEAR LEVELS
   const clearGameData = () => {
-    console.log(`clear game data`);
     let collectionInfo = JSON.parse(localStorage.getItem(`collectionInfo`)) || {};
     Object.keys(collectionInfo).forEach(key => {
       collectionInfo[key] = [];
@@ -61,12 +59,12 @@ const NavBar = ({page, pages, setPage, setCollectionInfo}) => {
 
   return (
     <>
-     <SettingsDialog
+     {isDialogOpen && <SettingsDialog
             isDialogOpen={isDialogOpen}
             onClose={() => setIsDialogOpen(false)}
             onClear={clearGameData}
       >
-      </SettingsDialog>
+      </SettingsDialog>}
       
       {isMenuOpen && 
         <div 
