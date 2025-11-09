@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react'
-import GameOverDialog from '../components/gameOverDialog';
+import { useState, useEffect } from 'react'
+import GameOverDialog from '../components/GameOverDialog';
+
 import axios from 'axios';
 
 
