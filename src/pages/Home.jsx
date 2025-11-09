@@ -5,7 +5,6 @@ import HomeMenuButton from "../components/HomeMenuButton"
 const Home = ({setPage, pages, setCollectionInfo}) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-
   const handlePlay = () => {
     setPage(pages.GAME_SELECT)
   }

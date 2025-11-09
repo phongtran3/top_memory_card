@@ -112,7 +112,7 @@ const CollectionCard = ({pokemon, currCollectionSet}) => {
          {currCollectionSet.has(pokemon.id) ? 
             <>
               
-              <div className="collection-card-header">
+              <div className="collection-card-header text-center">
                 <h3>#{pokemon.id} {pokemonName}</h3>
               </div>
 

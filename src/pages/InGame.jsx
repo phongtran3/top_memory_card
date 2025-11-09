@@ -44,6 +44,10 @@ const InGame = ({genId, setPage, pages, setGenerationInfo}) => {
 
         const promise = pokemonIdArray.map(id => axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`))
         const result = await Promise.all(promise);
+        if(result.length === collectedPokemonSet.size){
+          setLoading(false);
+          return;
+        }
 
         const pokemons = result.map(res => {
           return {
@@ -54,6 +58,8 @@ const InGame = ({genId, setPage, pages, setGenerationInfo}) => {
 
         }).filter(el => !collectedPokemonSet.has(el.id))
 
+        
+
         const initalDisplayedSet = fisherYatesShuffle(pokemons, 9)
         
         if (isMounted) {
@@ -62,16 +68,18 @@ const InGame = ({genId, setPage, pages, setGenerationInfo}) => {
           setCardsRemaining(Math.min(initalDisplayedSet.length, 9))
           setLoading(false);
         }
+
       }catch (error){
         console.error("Failed to fetch collection:", error);
       }
     }
-    if(collectedPokemonSet.size < 151)
-      fetchCollection();
+
+    fetchCollection();
 
     return () => {
       isMounted = false; // cleanup
     };
+
   }, []) //On inital page load
 
   const handleCardSelect = (pokemonID) => {
@@ -145,7 +153,7 @@ const InGame = ({genId, setPage, pages, setGenerationInfo}) => {
 
   return (
     <main className='page-container md:pb-20 bg-warmBackground min-h-screen'>
-      {collectedPokemonSet.size === 151 ?
+      {notCollected.length === 0 && !loading ?
       <div className='flex flex-col text-center justify-center items-center gap-8 pt-8 px-4 text-2xl'>
         <h2>Collection Completed!</h2>
         <p>Proceed to next region and collect new Pokemons!</p>

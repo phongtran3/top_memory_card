@@ -6,8 +6,6 @@ const NavBar = ({page, pages, setPage, setCollectionInfo}) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-
-
   const handleHome = () => {
     document.body.style.overflow = "";
     setPage(pages.HOME)
@@ -31,7 +29,6 @@ const NavBar = ({page, pages, setPage, setCollectionInfo}) => {
     setIsDialogOpen(true);
   }
 
-  //TO-DO - CLEAR LEVELS
   const clearGameData = () => {
     let collectionInfo = JSON.parse(localStorage.getItem(`collectionInfo`)) || {};
     Object.keys(collectionInfo).forEach(key => {

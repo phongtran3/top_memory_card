@@ -1,7 +1,5 @@
 @import "tailwindcss";
 
-
-
 @theme {
   --color-pokemonBlue: #2A75BB;
   --color-pokemonYellow: #FFCB05;
@@ -12,12 +10,6 @@
 }
 
 :root {
-  /* --pokemonYellow: '#FFCB05';
-  --pokemonBlue: '#2A75BB';
-  --red: '#FF0000';
-  --white: '#FFFFF';
-  --black: '#3D3D3D'; */
-
   --font-size-body: '16px';
   --font-family: 'pokemon solid','Times New Roman', Times, serif;
 }
@@ -52,35 +44,8 @@ body {
   clip-path: inset(0 3ch 0 0);
   animation: l4 1s steps(4) infinite;
 }
+
 .loader:before {
   content:"Loading..."
 }
 @keyframes l4 {to{clip-path: inset(0 -1ch 0 0)}}
-
-/* .selection-card-artwork img,
-.collection-card-img img {
-  max-width: 100%;
-}
-
-.selection-card {
-  border: 1px solid black;
-  cursor: pointer;
-}
-
-.collection-card,
-.game-card {
-  cursor: pointer;
-  margin-bottom: .5rem;
-  border: 1px solid black;
-}
-
-.collection-card-img img,
-.game-card-artwork img {
-  width: 100px;
-} */
-
-
-/* nav {
-  position: fixed;
-  bottom: 0;
-} */
